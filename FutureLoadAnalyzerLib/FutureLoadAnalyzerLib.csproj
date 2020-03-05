@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props')" />
+  <Import Project="..\packages\SQLite.3.13.0\build\net45\SQLite.props" Condition="Exists('..\packages\SQLite.3.13.0\build\net45\SQLite.props')" />
+  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CD95796C-DBDD-4C7F-8128-C953911B94CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FutureLoadAnalyzerLib</RootNamespace>
+    <AssemblyName>FutureLoadAnalyzerLib</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>..\Fla.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=5.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.5.1.0\lib\net461\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Automation">
+      <HintPath>..\..\LPG\Automation\bin\Debug\netstandard2.0\Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.3, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.3\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions, Version=5.10.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.5.10.2\lib\net47\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FuzzyLogicLibrary">
+      <HintPath>..\FuzzyLogicLibrary\bin\Debug\FuzzyLogicLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoJSON.Net, Version=1.2.0.0, Culture=neutral, PublicKeyToken=42c00ea87f5f14d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoJSON.Net.1.2.14\lib\net45\GeoJSON.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.8.0.152, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.8.0\lib\net452\ImageProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2019.1.3.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2019.1.3\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.0\lib\net461\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagePack, Version=1.8.0.0, Culture=neutral, PublicKeyToken=b4a0369545f0a1be, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagePack.1.8.80\lib\net47\MessagePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.51.5186.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.51.5186-beta\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering, Version=1.51.5186.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.51.5186-beta\lib\net20\MigraDoc.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering, Version=1.51.5186.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.51.5186-beta\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPoco, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPoco.4.0.2\lib\net45\NPoco.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.51.5185.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.51.5186-beta\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.51.5185.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.51.5186-beta\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="Plotly.Sharp, Version=0.0.4413.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plotly.Sharp.0.0.4413\lib\netstandard2.0\Plotly.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="SQLite-net, Version=1.7.302.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sqlite-net-pcl.1.7.302-beta\lib\netstandard2.0\SQLite-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.0.2.669, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_green.2.0.2\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core, Version=2.0.2.669, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.core.2.0.2\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.nativelibrary, Version=2.0.2.669, Culture=neutral, PublicKeyToken=502ed628492ab262, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_green.2.0.2\lib\net461\SQLitePCLRaw.nativelibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.dynamic_cdecl, Version=2.0.2.669, Culture=neutral, PublicKeyToken=b68184102cba0b3b, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.provider.dynamic_cdecl.2.0.2\lib\netstandard2.0\SQLitePCLRaw.provider.dynamic_cdecl.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.e_sqlite3, Version=1.1.14.520, Culture=neutral, PublicKeyToken=9c301db686d0bd12, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.provider.e_sqlite3.net45.1.1.14\lib\net45\SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.112.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.112.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Expressions.4.3.0\lib\net463\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.1\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xabe.FileLock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xabe.FileLock.2.0.0\lib\netstandard1.3\Xabe.FileLock.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.4.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.4.1\lib\net452\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="00_Import\A01_BusinessNameImport.cs" />
+    <Compile Include="00_Import\D01_FeiertageImport - Copy - Copy.cs" />
+    <Compile Include="00_Import\D02_Fernwärmeanschlüsse.cs" />
+    <Compile Include="00_Import\E01_ScenarioDefinitionSheetFixer.cs" />
+    <Compile Include="00_Import\C09_TemperatureProfileImport.cs" />
+    <Compile Include="00_Import\C08_WKWImport.cs" />
+    <Compile Include="00_Import\C07_SupplementalISN.cs" />
+    <Compile Include="00_Import\A02_DirenISNImport.cs" />
+    <Compile Include="00_Import\A03_EnergieBedarfsDatenImport.cs" />
+    <Compile Include="00_Import\A04_EnergieBedarfsRasterDatenImport.cs" />
+    <Compile Include="00_Import\A05_FeuerungsstaettenImport.cs" />
+    <Compile Include="00_Import\A06_GwrAdressenImport.cs" />
+    <Compile Include="00_Import\A07_GwrImporter.cs" />
+    <Compile Include="00_Import\A08_HausanschluesseLocalnetImport.cs" />
+    <Compile Include="00_Import\A09_LeftoverAdressTranslationTable.cs" />
+    <Compile Include="00_Import\B01_LocalnetImport.cs" />
+    <Compile Include="00_Import\B02_OSMLoader.cs" />
+    <Compile Include="00_Import\B03_PendlerdatenImport.cs" />
+    <Compile Include="00_Import\B04_PVAnlagenImport.cs" />
+    <Compile Include="00_Import\B05_SonnendachGeoJson.cs" />
+    <Compile Include="00_Import\B06_SonnenDachImport.cs" />
+    <Compile Include="00_Import\B07_StadtBurgdorfJahrgängeImport.cs" />
+    <Compile Include="00_Import\B08_TrafokreisImport.cs" />
+    <Compile Include="00_Import\ExcelHelper.cs" />
+    <Compile Include="00_Import\HausanschlussImport.cs" />
+    <Compile Include="00_Import\TemperatureProfileImport.cs" />
+    <Compile Include="00_Import\WasserkraftwerkImport.cs" />
+    <Compile Include="02_Komplexes\A_CreateComplexes.cs" />
+    <Compile Include="02_Komplexes\B_KomplexeToStandorte.cs" />
+    <Compile Include="02_Komplexes\ComplexesToMerge.cs" />
+    <Compile Include="02_Komplexes\ComplexMerger.cs" />
+    <Compile Include="02_Komplexes\C_BuildComplexEgids.cs" />
+    <Compile Include="02_Komplexes\D_AddTrafoKreise.cs" />
+    <Compile Include="02_Komplexes\E_ComplexValidator.cs" />
+    <Compile Include="03_KomplexEnergy\A_MergeKantonEnergieDatenToKomplexes.cs" />
+    <Compile Include="03_KomplexEnergy\C_MakeMonthlyElectrictyUse.cs" />
+    <Compile Include="03_KomplexEnergy\D_MonthlyElectricityUseChart.cs" />
+    <Compile Include="03_KomplexEnergy\E_MakeValidationCharts.cs" />
+    <Compile Include="04_HouseMaker\A01_Housemaker.cs" />
+    <Compile Include="04_HouseMaker\A02_MatchOsmToHouse.cs" />
+    <Compile Include="04_HouseMaker\A03_HouseAnschlussmaker.cs" />
+    <Compile Include="04_HouseMaker\A04_LocalnetProcessor.cs" />
+    <Compile Include="04_HouseMaker\A05_HouseholdMaker.cs" />
+    <Compile Include="04_HouseMaker\A11_BuildingInfrastructureMaker.cs" />
+    <Compile Include="04_HouseMaker\HouseTypeEntry.cs" />
+    <Compile Include="04_HouseMaker\LightingProfile.cs" />
+    <Compile Include="04_HouseMaker\OverrideEntry.cs" />
+    <Compile Include="04_HouseMaker\OverrideRepository.cs" />
+    <Compile Include="04_HouseMaker\PersistentCar.cs" />
+    <Compile Include="04_HouseMaker\PersistentHouseholdResidents.cs" />
+    <Compile Include="04_HouseMaker\PersistentOccupant.cs" />
+    <Compile Include="04_HouseMaker\PersistentOutgoingCommuterEntry.cs" />
+    <Compile Include="04_HouseMaker\StreetLight.cs" />
+    <Compile Include="04_HouseMaker\S_CheckHeatingSystem.cs" />
+    <Compile Include="04_HouseMaker\R_CheckBusinessAssignments.cs" />
+    <Compile Include="04_HouseMaker\A06_BusinessMaker.cs" />
+    <Compile Include="04_HouseMaker\A07_TrafokreisAnalyzer.cs" />
+    <Compile Include="04_HouseMaker\A08_MatchOsmToLocalnet.cs" />
+    <Compile Include="04_HouseMaker\A09_MatchOsmToSonnendach.cs" />
+    <Compile Include="04_HouseMaker\A10_TotalGeographicMatchVisualizer.cs" />
+    <Compile Include="04_HouseMaker\B_HouseHeatingCalculations.cs" />
+    <Compile Include="04_HouseMaker\C_OccupantCalculation.cs" />
+    <Compile Include="04_HouseMaker\D_AssignCars.cs" />
+    <Compile Include="04_HouseMaker\E_AssignParkingSpaces.cs" />
+    <Compile Include="04_HouseMaker\F_AssignHeatingSystems.cs" />
+    <Compile Include="04_HouseMaker\G_DHWSystemAssignment.cs" />
+    <Compile Include="04_HouseMaker\H1_AssignPV_PotentialEntries.cs" />
+    <Compile Include="04_HouseMaker\H2_DistributePVSystems.cs" />
+    <Compile Include="04_HouseMaker\HouseMemberFuzzyCalc.cs" />
+    <Compile Include="04_HouseMaker\J1_AssignOutgoingCommuterData.cs" />
+    <Compile Include="04_HouseMaker\J2_AssignIncomingCommuterData.cs" />
+    <Compile Include="04_HouseMaker\K_InitialStrassenbeleuchtung.cs" />
+    <Compile Include="04_HouseMaker\L_AssignAirConditioning.cs" />
+    <Compile Include="04_HouseMaker\P_WasserKraftwerke.cs" />
+    <Compile Include="04_HouseMaker\Q_BuildingInfrastructureMaker.cs" />
+    <Compile Include="04_HouseMaker\ZZ_LocalnetEgidChecker.cs" />
+    <Compile Include="04_HouseMaker\Z_DetermineHousetype.cs" />
+    <Compile Include="05_ScenarioCreation\A01_Houses.cs" />
+    <Compile Include="05_ScenarioCreation\A02PersistenceTest.cs" />
+    <Compile Include="05_ScenarioCreation\A02_ScnHouseholds.cs" />
+    <Compile Include="05_ScenarioCreation\A03_Businesses.cs" />
+    <Compile Include="05_ScenarioCreation\A05_Kleinwasserkraft.cs" />
+    <Compile Include="05_ScenarioCreation\C_OccupantAllocator.cs" />
+    <Compile Include="05_ScenarioCreation\D_CarCopier.cs" />
+    <Compile Include="05_ScenarioCreation\A04_BuildingInfrastructure.cs" />
+    <Compile Include="05_ScenarioCreation\E_ParkingCopier.cs" />
+    <Compile Include="05_ScenarioCreation\F_HeatingSystemChanger.cs" />
+    <Compile Include="05_ScenarioCreation\Z_GeneralExporter.cs" />
+    <Compile Include="05_ScenarioCreation\G_DHWSystemChanger.cs" />
+    <Compile Include="05_ScenarioCreation\H2_PvSystemBuilder.cs" />
+    <Compile Include="05_ScenarioCreation\HouseKeyHashTest.cs" />
+    <Compile Include="05_ScenarioCreation\J_Commuters.cs" />
+    <Compile Include="05_ScenarioCreation\K_Strassenbeleuchtung.cs" />
+    <Compile Include="05_ScenarioCreation\L_Airconditioning.cs" />
+    <Compile Include="05_ScenarioCreation\PersistenceBirthEntry.cs" />
+    <Compile Include="05_ScenarioCreation\PersistenceDeathEntry.cs" />
+    <Compile Include="05_ScenarioCreation\PersistenceMigratedOccupant.cs" />
+    <Compile Include="05_ScenarioCreation\PersistenceMigrationHouseholdEntry.cs" />
+    <Compile Include="05_ScenarioCreation\RndTest.cs" />
+    <Compile Include="06_ScenarioVisualizer\A03_HouseEnergyConsumption.cs" />
+    <Compile Include="06_ScenarioVisualizer\A07_HeatingSystemTrends.cs" />
+    <Compile Include="06_ScenarioVisualizer\A06_CarCharts.cs" />
+    <Compile Include="06_ScenarioVisualizer\A05_EnergyPerCategory.cs" />
+    <Compile Include="06_ScenarioVisualizer\A04_Trafostationen.cs" />
+    <Compile Include="06_ScenarioVisualizer\B01_PVAnalysis.cs" />
+    <Compile Include="06_ScenarioVisualizer\A08_AirConditioning.cs" />
+    <Compile Include="06_ScenarioVisualizer\A02_HouseResultsXls.cs" />
+    <Compile Include="06_ScenarioVisualizer\A01_HouseResultsCharts.cs" />
+    <Compile Include="06_ScenarioVisualizer\AnalysisRepositoryTests.cs" />
+    <Compile Include="06_ScenarioVisualizer\Z1_ScenarioMapMaker.cs" />
+    <Compile Include="00_Import\C02_BKWProfileImport.cs" />
+    <Compile Include="00_Import\C01_TrafostationListImporter.cs" />
+    <Compile Include="00_Import\C03_RLMImporter.cs" />
+    <Compile Include="00_Import\C05_ImportRLMAssignments.cs" />
+    <Compile Include="00_Import\C04_VDEWImporter.cs" />
+    <Compile Include="00_Import\C06_TemperatureProfileImportTodo.cs" />
+    <Compile Include="08_ProfileGeneration\B_LoadProfileGenerator.cs" />
+    <Compile Include="08_ProfileGeneration\D_ProfileIntegrityCheck.cs" />
+    <Compile Include="08_ProfileGeneration\C_CorrectHausanschlussAssignmentCheck.cs" />
+    <Compile Include="08_ProfileGeneration\F_SmartGridStrategyTester.cs" />
+    <Compile Include="08_ProfileGeneration\E_ApplySmartGridToGeneratedProfiles.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingDegreeProfileTest.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingGeneratorTest.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingProviderTest.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\DhwProfileProviderTest.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\DhwResult.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatingDegreeDay.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingDegreeProfile.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatingDegreeProfile.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingProvider.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\DhwProvider.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatingDegreeProfileTest.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatingProvider.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingCalculationParameters.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\DhwCalculationParameters.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatpumpCalculationParameters.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingProfileGenerator.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\DhwProfileGenerator.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatPumpProfileGenerator.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\CoolingStateEngine.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\DhwStateEngine.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatPumpResult.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatPumpStateEngine.cs" />
+    <Compile Include="08_ProfileGeneration\HeatingProviders\HeatPumpTimingMode.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\BusinessProfileOverrideEntry.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\BusinessProfileOverrideRepository.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\BusinessProfileOverrideRepositoryTests.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\CachingLPGProfileLoaderTest.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\ElectricCarProfileProviderTests.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\Feiertag.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\HouseInfrastructureProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\ElectricCarProvider.cs" />
+    <Compile Include="08_ProfileGeneration\GenericProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\ProviderParameterDto.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\SLPProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\SlpProviderTest.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\CachingLPGProfileLoader.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\DBDto.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\WasserkraftProviderTest.cs" />
+    <Compile Include="08_ProfileGeneration\ProsumerComponentResultArchiver.cs" />
+    <Compile Include="08_ProfileGeneration\ProsumerResultArchiverTest.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\PVProfileProviderTests.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\PVResults.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\PVSystemSettings.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\PVSystemSettingsTester.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\SavableEntryTester.cs" />
+    <Compile Include="08_ProfileGeneration\ResultObjects\ProfileGenerationRo.cs" />
+    <Compile Include="08_ProfileGeneration\ResultObjects\HouseRo.cs" />
+    <Compile Include="08_ProfileGeneration\ResultObjects\HausAnschlussRo.cs" />
+    <Compile Include="08_ProfileGeneration\ResultObjects\HouseComponentRo.cs" />
+    <Compile Include="08_ProfileGeneration\HouseProcessor.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\BusinessProfileProviderTest.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\FileEntryLoaderTest.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\HouseholdKeyEntryList.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\HouseholdKeyEntryListTest.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\HouseholdLoadProfileProviderTests.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\FileEntry.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\FileEntryLoader.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\ILoadProfileProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\BaseProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\LPGReader.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\ProfileLoader.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\ProfileLoaderTest.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\ResultFileEntryListTest.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LPG\ResultFileEntryLoader.cs" />
+    <Compile Include="08_ProfileGeneration\ProviderCollection.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\PVProfileProvider.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\PVSystemKey.cs" />
+    <Compile Include="07_RawProfileVisualizing\A_CitySumProfile.cs" />
+    <Compile Include="07_RawProfileVisualizing\C_SLPProfileVisualizer.cs" />
+    <Compile Include="08_ProfileGeneration\PVProfile\PVSystemKeyTester.cs" />
+    <Compile Include="08_ProfileGeneration\ResultObjects\XlsResultOutputMode.cs" />
+    <Compile Include="08_ProfileGeneration\ResultObjects\ResultObjectTester.cs" />
+    <Compile Include="08_ProfileGeneration\SmartGridInformation.cs" />
+    <Compile Include="09_ProfileAnalysis\B08_ReportLoadProfileExporter.cs" />
+    <Compile Include="09_ProfileAnalysis\B09_TrafokreisByCustomerType.cs" />
+    <Compile Include="09_ProfileAnalysis\B07_SelectedHouseExporter.cs" />
+    <Compile Include="09_ProfileAnalysis\B03_ComparisonProfilesToHouseData.cs" />
+    <Compile Include="09_ProfileAnalysis\B05_ProviderTypeXlsExporter.cs" />
+    <Compile Include="09_ProfileAnalysis\Plotly\LinePlotTrace.cs" />
+    <Compile Include="09_ProfileAnalysis\Plotly\PlotlyLayout.cs" />
+    <Compile Include="09_ProfileAnalysis\SumArchiving\ArchiveEntry.cs" />
+    <Compile Include="09_ProfileAnalysis\SumArchiving\ArchiveEntryTests.cs" />
+    <Compile Include="09_ProfileAnalysis\B01_GeneratedProfileSubTotals.cs" />
+    <Compile Include="09_ProfileAnalysis\B02_MakeSubTotalCharts.cs" />
+    <Compile Include="09_ProfileAnalysis\B04_HouseProfileXlsxExporter.cs" />
+    <Compile Include="09_ProfileAnalysis\Plotly\BoxplotTrace.cs" />
+    <Compile Include="09_ProfileAnalysis\Plotly\Margin.cs" />
+    <Compile Include="09_ProfileAnalysis\Plotly\PlotlyPlot.cs" />
+    <Compile Include="09_ProfileAnalysis\SumArchiving\SumType.cs" />
+    <Compile Include="09_ProfileAnalysis\TrafokreisStatisticsEntry.cs" />
+    <Compile Include="10_CrossSliceScenarioAnalysis\A03_EnergySplitBySupply.cs" />
+    <Compile Include="10_CrossSliceScenarioAnalysis\A02_CrossSliceProfileAnalysis.cs" />
+    <Compile Include="10_CrossSliceScenarioAnalysis\A01_EnergyPerCategory.cs" />
+    <Compile Include="RunningConfigTest.cs" />
+    <Compile Include="Tooling\Map\MapTileTest.cs" />
+    <Compile Include="Tooling\PngSvgConverter.cs" />
+    <Compile Include="Tooling\Steps\RunnableForAllScenarioWithBenchmark.cs" />
+    <Compile Include="Tooling\UnitTestBase.cs" />
+    <Compile Include="Tooling\WeightedRandomAllocatorTester.cs" />
+    <Compile Include="Tooling\XlsDumper\EnumWorksheetContent.cs" />
+    <Compile Include="Tooling\XlsDumper\IValueProvider.cs" />
+    <Compile Include="Tooling\XlsDumper\MultiSliceValue.cs" />
+    <Compile Include="Tooling\XlsDumper\MultiYearMultiVariable.cs" />
+    <Compile Include="Tooling\XlsDumper\MultiyearMultiVariableTrend.cs" />
+    <Compile Include="Tooling\XlsDumper\MultiYearTrend.cs" />
+    <Compile Include="Tooling\XlsDumper\ProfileWorksheetContent.cs" />
+    <Compile Include="Tooling\XlsDumper\SingleSliceValue.cs" />
+    <Compile Include="Tooling\XlsDumper\SliceMultiValueStore.cs" />
+    <Compile Include="Tooling\XlsDumper\SliceSingleValueStore.cs" />
+    <Compile Include="Tooling\ZZ_ProfileImportHelper.cs" />
+    <Compile Include="07_RawProfileVisualizing\B_ImportProfileVisualizer.cs" />
+    <Compile Include="08_ProfileGeneration\A_LoadProfilePreparer.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\LastgangMessungProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\HouseholdLoadProfileProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\BusinessProfileProvider.cs" />
+    <Compile Include="08_ProfileGeneration\LoadProfileProviders\WasserkraftProvider.cs" />
+    <Compile Include="09_ProfileAnalysis\A01_LastgangResidualCalc.cs" />
+    <Compile Include="09_ProfileAnalysis\SumArchiving\AnalysisKey.cs" />
+    <Compile Include="09_ProfileAnalysis\C01_CSVProfileVisualizer.cs" />
+    <Compile Include="MainBurgdorfStatisticsCreator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tooling\Steps\BasicRunnable.cs" />
+    <Compile Include="Tooling\Database\RowCollection.cs" />
+    <Compile Include="Tooling\Database\TableClass.cs" />
+    <Compile Include="Tooling\Map\MapTile.cs" />
+    <Compile Include="Tooling\Map\MapTileRepository.cs" />
+    <Compile Include="Tooling\Map\NeighbourTileMode.cs" />
+    <Compile Include="Tooling\Steps\RunableForSingleSliceWithBenchmark.cs" />
+    <Compile Include="Tooling\Steps\RunableWithBenchmark.cs" />
+    <Compile Include="Tooling\Steps\RunnableForScenarioWithBenchmark.cs" />
+    <Compile Include="Tooling\SAM\API.cs" />
+    <Compile Include="Tooling\SAM\Data.cs" />
+    <Compile Include="Tooling\SAM\Entry.cs" />
+    <Compile Include="Tooling\SAM\PVSystemInfo.cs" />
+    <Compile Include="Tooling\SAM\Module.cs" />
+    <Compile Include="Tooling\SAM\NativeMethods.cs" />
+    <Compile Include="Tooling\ServiceRepository.cs" />
+    <Compile Include="Tooling\WeightedRandomAllocator.cs" />
+    <Compile Include="Tooling\XlsDumper\XlsxDumper.cs" />
+    <Compile Include="Visualisation\SingleSlice\BusinessCharts.cs" />
+    <Compile Include="Visualisation\SingleSlice\CarCharts.cs" />
+    <Compile Include="Visualisation\SingleSlice\HeatingSystemCharts.cs" />
+    <Compile Include="Visualisation\SingleSlice\HouseCharts.cs" />
+    <Compile Include="Visualisation\SingleSlice\HouseholdCharts.cs" />
+    <Compile Include="Visualisation\SingleSlice\OccupantCharts.cs" />
+    <Compile Include="Visualisation\SingleSlice\ParkingSpaceCharts.cs" />
+    <Compile Include="Visualisation\SingleSlice\PVInstalledCharts.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Visualisation\Scenario\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="FutureLoadAnalyzerLib.ruleset" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\MessagePackAnalyzer.2.1.80\analyzers\dotnet\MessagePackAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\ResharperCodeContractNullability.2.0.0\analyzers\dotnet\cs\CodeContractNullability.dll" />
+    <Analyzer Include="..\packages\ResharperCodeContractNullability.2.0.0\analyzers\dotnet\cs\MsgPack.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.3.0.14607\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.3.0.14607\analyzers\SonarAnalyzer.CFG.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.3.0.14607\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.3.0.14607\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{F408320D-9270-40D3-84C1-279C44EF8B42}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{C64C27C6-E79E-4B9F-8493-8BC57C94D98A}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Visualizer\Visualizer.csproj">
+      <Project>{A5A93654-64E3-477A-9C4F-13E1F2E45E24}</Project>
+      <Name>Visualizer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
+    <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
+    <Error Condition="!Exists('..\packages\SQLite.3.13.0\build\net45\SQLite.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLite.3.13.0\build\net45\SQLite.props'))" />
+    <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets'))" />
+    <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets'))" />
+    <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\build\Microsoft.CodeAnalysis.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.osx.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.osx.targets')" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.v110_xp.1.1.14\build\net35\SQLitePCLRaw.lib.e_sqlite3.v110_xp.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net46\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.2\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
+  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+</Project>

@@ -42,9 +42,3 @@ Part of the Development was funded by the
 __Swiss Federal Office of Energy__
 
 This happend in the project "SimZukunft".
-
-Currently development is supported by the
-
-__Forschungszentrum Jülich - IEK 3__
-
-I am very grateful for the support!
